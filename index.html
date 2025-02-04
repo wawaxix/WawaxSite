@@ -62,20 +62,12 @@
             padding: 20px;
         }
 
-        /* Animation déformée */
-        @keyframes deform {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
-        }
-
         .deforming-image {
             width: 300px;
             height: 300px;
             margin: 1rem 0;
             border-radius: 15px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            animation: deform 2s infinite ease-in-out;
         }
 
         .popup {
@@ -160,33 +152,45 @@
             text-transform: uppercase;
             text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
         }
+
+        /* Pour le bouton "Clique pas" impossible à attraper */
+        .moving-button {
+            position: absolute;
+            transition: all 0.1s ease;
+            padding: 15px 30px;
+            font-size: 18px;
+            background-color: #ff6347;
+            color: white;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1 class="glitch-text">Oh t'es là ?! Prépare-toi à te faire troll</h1>
-        <h2 class="jumping-text">Oui, c'est toi qu'on troll !</h2>
+        <h1 class="glitch-text">Bien ou quoi, t'es tombé dans le piège ?</h1>
+        <h2 class="jumping-text">Je vais t'égorger avec des trolls bien salés !</h2>
 
-        <p id="spinningText" class="flashing-text">Troll détecté... Moi, je rigole bien ici !</p>
+        <p id="spinningText" class="flashing-text">T'es vraiment assez con pour croire que t'as pas encore tout perdu ?!</p>
 
-        <!-- Image déformée -->
-        <img src="images/meme.jpg" class="deforming-image" alt="Meme Troll">
+        <!-- Gif troll -->
+        <img src="images/troll.gif" class="deforming-image" alt="Troll GIF">
 
         <p id="randomMessage"></p>
 
-        <!-- Popup -->
-        <button onclick="showPopup()">Tu veux cliquer sur le bouton magique ?</button>
+        <button onclick="showPopup()">T'es vraiment naïf... Tu veux cliquer ?</button>
 
         <div id="popUpBox" class="popup">
-            <p>Bien joué, t'as cliqué ! T'es vraiment pas mal...</p>
-            <button onclick="closePopup()">Fermer</button>
+            <p>Vas-y, t'as encore cliqué. T'es tellement facile à avoir...</p>
+            <button onclick="closePopup()">Dégage</button>
         </div>
 
-        <!-- Surprise: Texte random -->
+        <!-- Texte random et ultra trash -->
         <p class="random-effects" id="randomText"></p>
 
-        <button onclick="randomRedirect()">Un clic pour le chaos !</button>
+        <button id="movingButton" class="moving-button">Clique pas, débile !</button>
 
         <audio id="trollSound" src="sounds/troll-sound.mp3" preload="auto"></audio>
         <audio id="surpriseSound" src="sounds/surprise-sound.mp3" preload="auto"></audio>
@@ -194,11 +198,11 @@
 
     <script>
         const messages = [
-            "Bienvenue dans le monde des trolls, moi j'ai des potes, mais toi t'es juste une victime...",
-            "Ooh t'as cru que c'était fini ?! Bienvenue à l'ère des échecs !",
-            "Surprise ! T'as encore perdu ! LOL",
-            "Félicitations, t'es officiellement une cible pour les trolls.",
-            "Bienvenue sur le site où ta dignité part en fumée !"
+            "Bien fait d'être une victime, tu sais pas dans quoi tu t'es embarqué.",
+            "Putain t'es encore là à cliquer... Tu veux vraiment faire partie de la game ?!",
+            "T'es le genre de mec qui se fait arnaquer dans les jeux vidéos, non ?",
+            "LOL t'es tellement prévisible. Bienvenue dans ma zone de trolls.",
+            "T'es vraiment qu'un bouffon. T'as cru que t'avais une chance ?!"
         ];
 
         function showRandomMessage() {
@@ -232,9 +236,9 @@
 
         // Surprise aléatoire
         const randomTexts = [
-            "Ooh, encore une fois... t'es le meilleur pour cliquer !",
-            "Je rigole tellement que tu cliques encore.",
-            "Dis adieu à tes espoirs et rêves. À jamais."
+            "T'as cru que t'avais gagné ?! MDR, pauvre de toi.",
+            "Oh la la, t'es encore plus con que prévu.",
+            "T'es vraiment un bouffon. Juste un troll en chair et en os."
         ];
 
         function randomText() {
@@ -243,6 +247,16 @@
         }
 
         setInterval(randomText, 5000);
+
+        // Déplacement du bouton
+        const moveButton = document.getElementById("movingButton");
+
+        moveButton.addEventListener("mouseenter", function () {
+            const randomX = Math.random() * window.innerWidth;
+            const randomY = Math.random() * window.innerHeight;
+            moveButton.style.left = randomX + "px";
+            moveButton.style.top = randomY + "px";
+        });
     </script>
 </body>
 </html>
