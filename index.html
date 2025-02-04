@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Troll</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .glitch {
+            font-size: 40px;
+            color: red;
+            animation: glitch 1s infinite alternate-reverse;
+        }
+        @keyframes glitch {
+            0% { text-shadow: 2px 0px red, -2px 0px blue; }
+            100% { text-shadow: -2px 0px red, 2px 0px blue; }
+        }
+        .pop-up {
+            display: none;
+            position: fixed;
+            top: 20%;
+            left: 20%;
+            width: 60%;
+            height: 30%;
+            background: white;
+            border: 2px solid black;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        .popup-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .popup-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bienvenue sur le Site de Troll !</h1>
+    <div class="glitch">Tu viens de te faire troll !</div>
+    <p> Clique <button onclick="showPopup()">ici</button> pour une surprise !</p>
+    
+    <div class="pop-up" id="popUpBox">
+        <h2>Surprise!</h2>
+        <p>Tu as gagné... un meme !</p>
+        <button class="popup-btn" onclick="closePopup()">Fermer</button>
+    </div>
+
+    <script>
+        function showPopup() {
+            document.getElementById("popUpBox").style.display = "block";
+        }
+
+        function closePopup() {
+            document.getElementById("popUpBox").style.display = "none";
+        }
+    </script>
+</body>
+</html>
