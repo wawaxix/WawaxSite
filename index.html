@@ -165,6 +165,29 @@
             border: none;
             cursor: pointer;
         }
+
+        /* Cacher le bouton avec l'historique chelou */
+        .hidden-button {
+            position: absolute;
+            top: -100px;
+            left: -100px;
+            opacity: 0;
+        }
+
+        .history-popup {
+            position: fixed;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.9);
+            padding: 20px;
+            color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: none;
+            max-width: 500px;
+            text-align: left;
+        }
     </style>
 </head>
 <body>
@@ -191,6 +214,21 @@
         <p class="random-effects" id="randomText"></p>
 
         <button id="movingButton" class="moving-button">Clique pas, débile !</button>
+
+        <!-- Bouton caché pour "historique chelou" -->
+        <button id="historyButton" class="hidden-button" onclick="showHistory()">Histoire cachée</button>
+
+        <div id="historyPopup" class="history-popup">
+            <h3>Historique bizarre ajouté :</h3>
+            <ul>
+                <li><a href="https://www.google.com/search?q=site+porno" target="_blank">Recherche étrange 1</a></li>
+                <li><a href="https://www.you.com/search?q=site+dangerous+clicks" target="_blank">Recherche étrange 2</a></li>
+                <li><a href="https://www.wikipedia.org/wiki/Internet_Memes" target="_blank">Mème Internet</a></li>
+                <li><a href="https://www.dailystar.co.uk" target="_blank">Dailystar Troll</a></li>
+                <li><a href="https://www.reddit.com/r/troll/" target="_blank">Reddit Trolls</a></li>
+            </ul>
+            <button onclick="closeHistory()">Fermer</button>
+        </div>
 
         <audio id="trollSound" src="sounds/troll-sound.mp3" preload="auto"></audio>
         <audio id="surpriseSound" src="sounds/surprise-sound.mp3" preload="auto"></audio>
@@ -223,30 +261,15 @@
             document.getElementById("popUpBox").style.display = "none";
         }
 
-        // Fonction pour redirection aléatoire
-        function randomRedirect() {
-            const urls = [
-                "https://www.youtube.com/watch?v=dQw4w9WgXcQ", // Rickroll
-                "https://www.youtube.com/watch?v=sOnqjkJTMaA", // Surprise song
-                "https://www.memecenter.com"
-            ];
-            const randomIndex = Math.floor(Math.random() * urls.length);
-            window.location.href = urls[randomIndex];
+        // Affichage de l'historique caché
+        function showHistory() {
+            document.getElementById("historyPopup").style.display = "block";
         }
 
-        // Surprise aléatoire
-        const randomTexts = [
-            "T'as cru que t'avais gagné ?! MDR, pauvre de toi.",
-            "Oh la la, t'es encore plus con que prévu.",
-            "T'es vraiment un bouffon. Juste un troll en chair et en os."
-        ];
-
-        function randomText() {
-            const index = Math.floor(Math.random() * randomTexts.length);
-            document.getElementById("randomText").innerText = randomTexts[index];
+        // Fermer l'historique
+        function closeHistory() {
+            document.getElementById("historyPopup").style.display = "none";
         }
-
-        setInterval(randomText, 5000);
 
         // Déplacement du bouton
         const moveButton = document.getElementById("movingButton");
@@ -257,6 +280,13 @@
             moveButton.style.left = randomX + "px";
             moveButton.style.top = randomY + "px";
         });
+
+        // Afficher le bouton caché après un délai
+        setTimeout(() => {
+            document.getElementById("historyButton").style.opacity = 1;
+            document.getElementById("historyButton").style.top = "30%";
+            document.getElementById("historyButton").style.left = "50%";
+        }, 5000); // Affiche le bouton après 5 secondes
     </script>
 </body>
 </html>
