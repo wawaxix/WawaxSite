@@ -3,65 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Site Troll</title>
+    <title>Site de Troll</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-        }
-        .glitch {
-            font-size: 40px;
-            color: red;
-            animation: glitch 1s infinite alternate-reverse;
-        }
+        /* Effet Glitch */
         @keyframes glitch {
-            0% { text-shadow: 2px 0px red, -2px 0px blue; }
-            100% { text-shadow: -2px 0px red, 2px 0px blue; }
+            0% { transform: translate(0, 0); }
+            20% { transform: translate(-5px, -5px); }
+            40% { transform: translate(5px, 5px); }
+            60% { transform: translate(-5px, 5px); }
+            80% { transform: translate(5px, -5px); }
+            100% { transform: translate(0, 0); }
         }
-        .pop-up {
+        .glitch-text {
+            font-size: 50px;
+            color: #FF6347;
+            animation: glitch 1s infinite;
+        }
+
+        /* Animation de texte sautillant */
+        @keyframes jump {
+            0% { transform: translateY(0); }
+            25% { transform: translateY(-10px); }
+            50% { transform: translateY(0); }
+            75% { transform: translateY(-5px); }
+            100% { transform: translateY(0); }
+        }
+        .jumping-text {
+            font-size: 50px;
+            color: #FF6347;
+            animation: jump 0.5s ease-in-out infinite;
+        }
+
+        /* Effet de déformation d'image */
+        @keyframes deform {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        .deforming-image {
+            width: 200px;
+            height: 200px;
+            animation: deform 2s infinite ease-in-out;
+        }
+
+        /* Style de popup */
+        .popup {
             display: none;
             position: fixed;
-            top: 20%;
-            left: 20%;
-            width: 60%;
-            height: 30%;
-            background: white;
-            border: 2px solid black;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        }
-        .popup-btn {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #007BFF;
+            background-color: rgba(0, 0, 0, 0.8);
             color: white;
-            border: none;
-            cursor: pointer;
-        }
-        .popup-btn:hover {
-            background-color: #0056b3;
+            border-radius: 10px;
         }
     </style>
 </head>
 <body>
-    <h1>Bienvenue sur le Site de Troll !</h1>
-    <div class="glitch">Tu viens de te faire troll !</div>
-    <p> Clique <button onclick="showPopup()">ici</button> pour une surprise !</p>
-    
-    <div class="pop-up" id="popUpBox">
-        <h2>Surprise!</h2>
-        <p>Tu as gagné... un meme !</p>
-        <button class="popup-btn" onclick="closePopup()">Fermer</button>
+    <h1 class="glitch-text">Bienvenue dans le site de Troll !</h1>
+    <h2 class="jumping-text">Tu viens de te faire trollé !</h2>
+
+    <!-- Image déformée -->
+    <img src="images/meme.jpg" class="deforming-image" alt="Meme Troll">
+
+    <!-- Pop-up -->
+    <button onclick="showPopup()">Clique ici pour une surprise !</button>
+    <div id="popUpBox" class="popup">
+        <p>Tu as cliqué sur le bouton... Bien joué !</p>
+        <button onclick="closePopup()">Fermer</button>
     </div>
 
+    <!-- Message aléatoire -->
+    <p id="randomMessage"></p>
+
+    <!-- Son -->
+    <audio id="trollSound" src="sounds/troll-sound.mp3" preload="auto"></audio>
+    <audio id="surpriseSound" src="sounds/surprise-sound.mp3" preload="auto"></audio>
+
+    <!-- Redirection aléatoire -->
+    <button onclick="randomRedirect()">Clique ici pour une surprise !</button>
+
     <script>
-        function showPopup() {
-            document.getElementById("popUpBox").style.display = "block";
+        // Fonction pour afficher un message aléatoire
+        const messages = [
+            "Tu es un champion... de la déception !",
+            "C'est ici que ton rêve s'effondre.",
+            "Surprise, t'es toujours ici ?!",
+            "Troll du siècle !",
+            "Bravo, t'as cliqué !"
+        ];
+
+        function showRandomMessage() {
+            const randomIndex = Math.floor(Math.random() * messages.length);
+            document.getElementById("randomMessage").innerText = messages[randomIndex];
         }
 
+        // Afficher un message aléatoire au chargement
+        window.onload = showRandomMessage;
+
+        // Fonction pour afficher le pop-up
+        function showPopup() {
+            document.getElementById("popUpBox").style.display = "block";
+            document.getElementById("trollSound").play();
+        }
+
+        // Fonction pour fermer le pop-up
         function closePopup() {
             document.getElementById("popUpBox").style.display = "none";
         }
+
+        // Fonction pour redirection aléatoire
+        function randomRedirect() {
+            const urls = [
+                "https://www.youtube.com/watch?v=dQw4w9WgXcQ", // Rickroll
+                "https://www.trollface.com", // Exemple d'un site fictif
+                "https://www.memecenter.com"
+            ];
+            const randomIndex = Math.floor(Math.random() * urls.length);
+            window.location.href = urls[randomIndex];
+        }
+
+        // Fonction pour jouer un son de surprise
+        document.querySelector('div').addEventListener('mouseover', function() {
+            document.getElementById('surpriseSound').play();
+        });
     </script>
 </body>
 </html>
